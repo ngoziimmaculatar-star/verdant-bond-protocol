@@ -19,6 +19,13 @@ import { QuotaController } from './quota.controller';
 import { StellarModule } from '../stellar/stellar.module';
 import { ExternalReferenceVerifierService } from './services/external-reference-verifier.service';
 
+const SHARED = [
+  NonceService, RedisService, SigningKeyProvider, ConfigService, KycStoreService,
+  HolderIndexService, IntentService, IntentGuard, IdempotencyService,
+  SearchIndexService, EnvConfigValidator,
+  TelemetryService, TelemetryInterceptor, QuotaService, QuotaGuard,
+];
+
 @Global()
 @Module({
   imports: [StellarModule],

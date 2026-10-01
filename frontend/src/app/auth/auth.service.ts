@@ -10,6 +10,10 @@ export class AuthService {
 
   readonly token = signal<string | null>(localStorage.getItem('nbs_access_token'));
   readonly isAuthenticated = computed(() => this.token() !== null);
+  /** JWT session present AND wallet connected — required for any signed action.
+   *  Single source of truth for gating protected routes/actions (see
+   *  auth/guards/wallet-auth.guard.ts). */
+  readonly sessionReady = computed(() => this.isAuthenticated() && this.walletService.isConnected());
 
   readonly userProfile = computed(() => {
     const t = this.token();
@@ -68,7 +72,7 @@ export class AuthService {
     let attempt = 0;
     const maxAttempts = 2;
 
-    while (true) {
+    for (;;) {
       attempt += 1;
       const { challenge } = await this.challengeFor(address);
       const signedChallenge = await this.walletService.signChallenge(challenge);

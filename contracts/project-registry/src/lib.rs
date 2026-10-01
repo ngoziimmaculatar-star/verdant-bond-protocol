@@ -9,7 +9,6 @@ use soroban_sdk::{
 /// layout or interface change; see docs/upgrade-migrations.md.
 pub const SCHEMA_VERSION: u32 = 1;
 
-
 #[derive(Clone)]
 pub enum RegistryEvent {
     ProjectRegistered {

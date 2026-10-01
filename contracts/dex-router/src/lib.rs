@@ -7,7 +7,6 @@ use soroban_sdk::{contract, contractimpl, contracttype, vec, Address, Env, IntoV
 /// layout or interface change; see docs/upgrade-migrations.md.
 pub const SCHEMA_VERSION: u32 = 1;
 
-
 #[derive(Clone)]
 #[contracttype]
 pub enum DataKey {
@@ -210,7 +209,6 @@ impl DEXRouter {
         let _ = env;
         SCHEMA_VERSION
     }
-
 
     pub fn get_nonce(env: Env, address: Address) -> u64 {
         get_nonce(&env, &address)
@@ -714,7 +712,10 @@ mod test {
             credit_type: nbbs_shared::CreditType::Carbon,
             maturity_date: 3_000_000,
             total_supply: bond_supply,
-        };
+            credit_vintage: 2024,
+            serial_number_start: 1,
+            serial_number_end: 10_000,
+            };
 
         let bond_id = issuer_client.issue_bond(&issuer_admin, &bond_config, &0);
 
